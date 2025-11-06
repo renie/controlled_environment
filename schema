@@ -13,7 +13,7 @@ ____
 ----
 5x 2pin
 
-Button and battery wont connect directly to the board 
+Button wont connect directly to the board 
 
 --------
 
@@ -62,9 +62,9 @@ FRONT: (components)
                                USB-PORT                           
                                  ____                             
                                  |  |                             
-      ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  ‾‾‾‾‾‾‾‾‾‾  o  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  X 3pin
-      ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  E  ⋅  ⋅  ⋅  X  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  X 3V 
-      ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  S  ⋅  S  ⋅  o  ⋅  ⦶  ⦶  ⦶  ⇒  ⋅  X DHT22
+ 2pin X  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  ‾‾‾‾‾‾‾‾‾‾  o  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  X 3pin
+   5V X  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  E  ⋅  ⋅  ⋅  X  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  X 3V 
+ Batt ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  S  ⋅  S  ⋅  o  ⋅  ⦶  ⦶  ⦶  ⇒  ⋅  X DHT22
       ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  P  C  U  M  o  ⋅  ⋅1 ⋅  ⋅OR⋅  ⋅  ⋅
       ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  3  3  P  I  o  ⋅  ⋅3Ω⋅  ⋅LD⋅  ⋅  x 3pin
       ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  2  ⋅  E  N  o  ⋅  ⋅0 ⋅  ⋅  ⋅  ⋅  X 3V
@@ -107,9 +107,9 @@ X and - : GND
                                USB-PORT
                                  ____
                                  |  |
-      ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  ‾‾‾‾‾‾‾‾‾↓++5V ⋅  ⋅  ⋅  ++++++↓++X 3pin
-      ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  ⋅  ⋅  ------X  +++++++++++ ------X 3V
-      ⋅  ⋅  ⋅  ⋅  ⋅  ******7  ⋅  ⋅  ----  3V++++o  o++o  o  ↑  X DHT22
+ 2pin X  +  ⋅  ⋅  -  ⋅  ⋅  o  ‾‾‾‾‾‾‾‾‾↓++5V ⋅  ⋅  ⋅  ++++++↓++X 3pin
+   5V X  ----------  ⋅  ⋅  o  ⋅  ⋅  ------X  +++++++++++ ------X 3V
+ Batt ⋅  ⋅  ⋅  ⋅  ⋅  ******7  ⋅  ⋅  ----  3V++++o  o++o  o  ↑  X DHT22
       ⋅  ⋅  ⋅  ⋅  ⋅  *  ⋅  o  ⋅  ----  ↑  4************→ -  + ←*
       ⋅  ⋅  ⋅  ⋅  ⋅  *  ⋅  o  ⋅  ----  +  3************  -  +++X 3pin
       ⋅  ⋅  ⋅  ⋅  ⋅  * ****10 ----  ⋅  +  o  ⋅  ⋅  ⋅  *  -→ + ←X 3V
