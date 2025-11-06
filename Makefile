@@ -6,6 +6,7 @@ all: upload
 
 secrets.h:
 	@echo "#define BAUDRATE $(BAUDRATE)" > $@
+	@echo "#define BOARD \"$(BOARD)\"" >> $@
 	@echo "#define NETWORK_NAME \"$(NETWORK_NAME)\"" >> $@
 	@echo "#define NETWORK_PASS \"$(NETWORK_PASS)\"" >> $@
 	@echo "#define API_TO_REPORT_SENSES_URL \"$(API_TO_REPORT_SENSES_URL)\"" >> $@
@@ -17,6 +18,11 @@ secrets.h:
 	@echo "#define RES_SENSOR__SOILMOISTURE__VERYDRY $(RES_SENSOR__SOILMOISTURE__VERYDRY)" >> $@
 	@echo "#define RES_SENSOR__SOILMOISTURE__VERYWET $(RES_SENSOR__SOILMOISTURE__VERYWET)" >> $@
 	@echo "#define SECONDS_BEFORE_NEXT_SENSOR_READING $(SECONDS_BEFORE_NEXT_SENSOR_READING)" >> $@
+	@echo "#define FAN_PWM_FREQ $(FAN_PWM_FREQ)" >> $@
+	@echo "#define FAN_PWM_RESOLUTION $(FAN_PWM_RESOLUTION)" >> $@
+	@echo "#define FAN_PWM_CHANNEL $(FAN_PWM_CHANNEL)" >> $@
+	@echo "#define FAN_PWM_DEADZONE_LOW $(FAN_PWM_DEADZONE_LOW)" >> $@
+	@echo "#define FAN_PWM_DEADZONE_HIGH $(FAN_PWM_DEADZONE_HIGH)" >> $@
 
 install:
 	$(ARDUINO_CLI) core install esp32:esp32

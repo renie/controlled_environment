@@ -4,7 +4,8 @@
 
 namespace Controlled {
   void initializePins();
-  void setFanPWM(int PWMValue);
+  void setFanSpeed(int percentage);
+  int getFanSpeed();
 }
 
 #endif
