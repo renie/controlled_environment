@@ -2,6 +2,7 @@
 #include "../secrets.h"
 #include "./sensors.h"
 #include "./airHumidityAndTemperature.h"
+#include "./lightSensor.h"
 #include "./wifiConnection.h"
 #include "./reportingAPI.h"
 
@@ -18,10 +19,9 @@ namespace Sensors {
   void handleSensors() {
 
     AirReadings airReadings = AirHumidityAndTemperature::readAllValues();
+    int ldrReading = LightSensor::read();
 
     int soilMoisture = analogRead(SOILMOISTURE_PIN);
-    int ldrReading = analogRead(LDR_PIN);
-
 
     // Using calibration values to map soil moisture in a value between 0-100 for usage with 100%
     int soilMoistureValue = map(soilMoisture, RES_SENSOR__SOILMOISTURE__VERYDRY, RES_SENSOR__SOILMOISTURE__VERYWET, 0, 100);
@@ -36,7 +36,7 @@ namespace Sensors {
 
     // Validating sensor readings
     if (!AirHumidityAndTemperature::areReadingsValid(airReadings) || 
-      isnan(ldrReading)) {
+      !LightSensor::isReadingValid(ldrReading)) {
       Serial.println("There is a sensor with wrong readings.");
       Serial.println("Not sending wrong readings to the remote server.");
       return;
