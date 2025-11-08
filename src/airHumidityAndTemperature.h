@@ -2,10 +2,10 @@
 #define AirHumidityAndTemperature_H
 
 struct AirReadings {
-    float humidityOnSensor1;
-    float temperatureOnSensor1;
-    float humidityOnSensor2;
-    float temperatureOnSensor2;
+  float humidityOnSensor1;
+  float temperatureOnSensor1;
+  float humidityOnSensor2;
+  float temperatureOnSensor2;
 };
 
 namespace AirHumidityAndTemperature {

@@ -38,6 +38,15 @@ namespace ReportingAPI {
     return request;
   }
 
+  void setData(SensorReadings sensorData) {
+    dataToReport["humidity1"] = sensorData.humidity1;
+    dataToReport["temperature1"] = sensorData.temperature1;
+    dataToReport["humidity2"] = sensorData.humidity1;
+    dataToReport["temperature2"] = sensorData.temperature1;
+    dataToReport["soilMoisture"] = sensorData.ldr;
+    dataToReport["light"] = sensorData.soil;
+  }
+
   int sendSensorData() {
     HTTPClient& request = prepareHTTPRequest();
     String dataToPost = prepareJSONToBeSent();

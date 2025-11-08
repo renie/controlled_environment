@@ -2,6 +2,7 @@
 #include "../secrets.h"
 #include "./sensors.h"
 #include "./airHumidityAndTemperature.h"
+#include "./resistiveSoilMoisture.h"
 #include "./lightSensor.h"
 #include "./wifiConnection.h"
 #include "./reportingAPI.h"
@@ -9,53 +10,44 @@
 namespace Sensors {
   void initializePins() {
     AirHumidityAndTemperature::initializePins();
-    pinMode(SOILMOISTURE_PIN, INPUT);
+    ResistiveSoilMoisture::initializePins();
+    LightSensor::initializePins();
   }
 
   void begin() {
     AirHumidityAndTemperature::begin();
   }
 
-  void handleSensors() {
+  static void printReadings(SensorReadings readings) {
+    Serial.println("Humidity on sensor 1: " + String(readings.humidity1));
+    Serial.println("Temperature on sensor 1: " + String(readings.temperature1));
+    Serial.println("Humidity on sensor 2: " + String(readings.humidity2));
+    Serial.println("Temperature on sensor 2: " + String(readings.temperature2));
+    Serial.println("LDR: " + String(readings.ldr));
+    Serial.println("Soil Moisture: " + String(readings.soil) + "%");
+  }
 
-    AirReadings airReadings = AirHumidityAndTemperature::readAllValues();
-    int ldrReading = LightSensor::read();
+  static bool areSensorReadingsValid(SensorReadings readings) {
+    /**
+    * TODO: Integrate AirReadings and SensorReadings in such a way
+    * that it is not needed anymore to recreate an AirReadings struct
+    * out of a SensorReadings struct every time a function that 
+    * accepts AirReadings needs to be used.
+    */
+    AirReadings airReadings = {
+      readings.humidity1,
+      readings.temperature1,
+      readings.humidity2,
+      readings.temperature2
+    };
 
-    int soilMoisture = analogRead(SOILMOISTURE_PIN);
+    return (
+      !AirHumidityAndTemperature::areReadingsValid(airReadings) || 
+      !LightSensor::isReadingValid(readings.ldr)
+    );
+  }
 
-    // Using calibration values to map soil moisture in a value between 0-100 for usage with 100%
-    int soilMoistureValue = map(soilMoisture, RES_SENSOR__SOILMOISTURE__VERYDRY, RES_SENSOR__SOILMOISTURE__VERYWET, 0, 100);
-    soilMoistureValue = constrain(soilMoistureValue, 0, 100);
-
-
-    // Show sensor readings on Serial Monitor
-    AirHumidityAndTemperature::printReadings(airReadings);
-    Serial.println("LDR: " + String(ldrReading));
-    Serial.println("Soil Moisture: " + String(soilMoistureValue) + "% (" + String(soilMoisture) + ")");
-
-
-    // Validating sensor readings
-    if (!AirHumidityAndTemperature::areReadingsValid(airReadings) || 
-      !LightSensor::isReadingValid(ldrReading)) {
-      Serial.println("There is a sensor with wrong readings.");
-      Serial.println("Not sending wrong readings to the remote server.");
-      return;
-    }
-
-
-    // Sets the already validated sensor readings as
-    // the data to be reported
-    ReportingAPI::setSensorData("humidity1", airReadings.humidityOnSensor1);
-    ReportingAPI::setSensorData("temperature1", airReadings.temperatureOnSensor1);
-    ReportingAPI::setSensorData("humidity2", airReadings.humidityOnSensor2);
-    ReportingAPI::setSensorData("temperature2", airReadings.temperatureOnSensor2);
-    ReportingAPI::setSensorData("soilMoisture", soilMoistureValue);
-    ReportingAPI::setSensorData("light", ldrReading);
-
-  
-    // Reports the data to remote server, if there is Wifi connection
-    // and logs different messages for different returned 
-    // HTTP response codes 
+  static void reportSensorDataToRemoteAPI() {
     if (WifiConnection::isOn()) {
       int httpResponseCode = ReportingAPI::sendSensorData();
 
@@ -72,5 +64,38 @@ namespace Sensors {
     } else {
       Serial.println("WiFi Disconnected");
     }
+  }
+
+  void handleSensors() {
+    SensorReadings readings = getReadings();
+
+    printReadings(readings);
+
+    if (areSensorReadingsValid(readings)) {
+      Serial.println("There is a sensor with wrong readings.");
+      Serial.println("Not sending wrong readings to the remote server.");
+      return;
+    }
+
+    ReportingAPI::setData(readings);
+
+    reportSensorDataToRemoteAPI();
+  }
+
+  SensorReadings getReadings() {
+    AirReadings airReadings = AirHumidityAndTemperature::readAllValues();
+    int ldrReading = LightSensor::read();
+    int soilMoisture = ResistiveSoilMoisture::read();
+    
+    SensorReadings readings = {
+      airReadings.humidityOnSensor1,
+      airReadings.temperatureOnSensor1,
+      airReadings.humidityOnSensor2,
+      airReadings.temperatureOnSensor2,
+      ldrReading,
+      soilMoisture
+    };
+
+    return readings;
   }
 }
