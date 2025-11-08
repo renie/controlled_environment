@@ -16,13 +16,28 @@ namespace WebControllers {
 
   static void getFanSpeed() { 
     server.send(200, "text/plain", String(Controlled::getFanSpeed()) + "%");
-   }
+  }
+
+  void setLights(bool state) {
+    Controlled::setLightsState(state);
+    server.send(200, "text/plain", "Lights set to: " + String(state) + "%");
+  }
+
+  static void setLightsOff() { setLights(false); }
+  static void setLightsOn() { setLights(true); }
+
+  static void getLightsState() {
+    server.send(200, "text/plain", String(Controlled::getLightsState()));
+  }
 
   static void addRoutes() {
     server.on("/fanoff", setFan0);
     server.on("/fanon", setFan100);
     server.on("/fanhalf", setFan50);
     server.on("/fanspeed", getFanSpeed);
+    server.on("/lightson", getFanSpeed);
+    server.on("/lightsoff", getFanSpeed);
+    server.on("/lightsstate", getLightsState);
   }
 
   void start() {

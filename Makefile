@@ -15,6 +15,7 @@ secrets.h:
 	@echo "#define SOILMOISTURE_PIN $(SOILMOISTURE_PIN)" >> $@
 	@echo "#define FAN_PIN $(FAN_PIN)" >> $@
 	@echo "#define LDR_PIN $(LDR_PIN)" >> $@
+	@echo "#define LIGHTS_PIN $(LIGHTS_PIN)" >> $@
 	@echo "#define RES_SENSOR__SOILMOISTURE__VERYDRY $(RES_SENSOR__SOILMOISTURE__VERYDRY)" >> $@
 	@echo "#define RES_SENSOR__SOILMOISTURE__VERYWET $(RES_SENSOR__SOILMOISTURE__VERYWET)" >> $@
 	@echo "#define SECONDS_BEFORE_NEXT_SENSOR_READING $(SECONDS_BEFORE_NEXT_SENSOR_READING)" >> $@
@@ -23,6 +24,7 @@ secrets.h:
 	@echo "#define FAN_PWM_CHANNEL $(FAN_PWM_CHANNEL)" >> $@
 	@echo "#define FAN_PWM_DEADZONE_LOW $(FAN_PWM_DEADZONE_LOW)" >> $@
 	@echo "#define FAN_PWM_DEADZONE_HIGH $(FAN_PWM_DEADZONE_HIGH)" >> $@
+
 
 install:
 	$(ARDUINO_CLI) core install esp32:esp32

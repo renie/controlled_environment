@@ -6,6 +6,8 @@ namespace Controlled {
   void initializePins();
   void setFanSpeed(int percentage);
   int getFanSpeed();
+  void setLightsState(bool state);
+  bool getLightsState();
 }
 
 #endif
