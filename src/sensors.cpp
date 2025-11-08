@@ -82,6 +82,11 @@ namespace Sensors {
     reportSensorDataToRemoteAPI();
   }
 
+  bool isLightOn() {
+    int ldr = LightSensor::read();
+    return (isnan(ldr) && LightSensor::isOn(ldr));
+  }
+
   SensorReadings getReadings() {
     AirReadings airReadings = AirHumidityAndTemperature::readAllValues();
     int ldrReading = LightSensor::read();

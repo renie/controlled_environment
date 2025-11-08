@@ -16,6 +16,7 @@ namespace Sensors {
   void begin();
   void handleSensors();
   SensorReadings getReadings();
+  bool isLightOn();
 }
 
 #endif

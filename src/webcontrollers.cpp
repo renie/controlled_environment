@@ -1,5 +1,6 @@
 #include <WebServer.h>
 #include "./webcontrollers.h"
+#include "./sensors.h"
 #include "./controlled.h"
 
 namespace WebControllers {
@@ -27,7 +28,7 @@ namespace WebControllers {
   static void setLightsOn() { setLights(true); }
 
   static void getLightsState() {
-    server.send(200, "text/plain", String(Controlled::getLightsState()));
+    server.send(200, "text/plain", "State:" + String(Controlled::getLightsState()) + ",Sensor:" + String(Sensors::isLightOn()));
   }
 
   static void addRoutes() {

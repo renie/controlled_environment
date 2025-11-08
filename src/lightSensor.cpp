@@ -17,4 +17,8 @@ namespace LightSensor {
   bool isReadingValid(int reading) {
     return isnan(reading);
   }
+
+  bool isOn(int reading) {
+    return reading > LDR_THRESHOLD;
+  }
 }

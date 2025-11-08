@@ -24,6 +24,7 @@ secrets.h:
 	@echo "#define FAN_PWM_CHANNEL $(FAN_PWM_CHANNEL)" >> $@
 	@echo "#define FAN_PWM_DEADZONE_LOW $(FAN_PWM_DEADZONE_LOW)" >> $@
 	@echo "#define FAN_PWM_DEADZONE_HIGH $(FAN_PWM_DEADZONE_HIGH)" >> $@
+	@echo "#define LDR_THRESHOLD $(LDR_THRESHOLD)" >> $@
 
 
 install:

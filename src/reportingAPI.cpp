@@ -1,5 +1,6 @@
 #include "../secrets.h"
 #include "./reportingAPI.h"
+#include "./lightSensor.h"
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
@@ -43,7 +44,7 @@ namespace ReportingAPI {
     dataToReport["temperature1"] = sensorData.temperature1;
     dataToReport["humidity2"] = sensorData.humidity1;
     dataToReport["temperature2"] = sensorData.temperature1;
-    dataToReport["soilMoisture"] = sensorData.ldr;
+    dataToReport["soilMoisture"] = String(LightSensor::isOn(sensorData.ldr));
     dataToReport["light"] = sensorData.soil;
   }
 
