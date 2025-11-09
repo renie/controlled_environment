@@ -56,7 +56,7 @@ namespace Fans {
     pwmValue = mapPercentageToPWM(pwmInPercentage);
     setFanPwm();
 
-    Serial.println("Fan set to (" + String(pwmInPercentage) + ")");
+    Serial.println("Fan set to " + String(pwmInPercentage) + "% (" + String(pwmValue) + ")");
     Serial.println("");
     Serial.println("------------------");
     Serial.println("");

@@ -5,19 +5,20 @@
 #include "src/wifiConnection.h"
 
 void setup() {
+  Serial.print("Initializing board.");
   Serial.begin(BAUDRATE);
   analogSetAttenuation(ADC_11db);
 
+  Serial.print("Initializing pins of controlled interfaces.");
+  Controlled::initializePins();
 
+  Serial.print("Initializing pin of sensors.");
   Sensors::initializePins();
   Sensors::begin();
 
 
-  Controlled::initializePins();
-
-
+  Serial.print("Connecting WiFi");
   WifiConnection::turnOn();  
-  Serial.print("Connecting WiFi");  
   while (!WifiConnection::isOn()) {
     delay(500);
     Serial.print(".");
@@ -36,7 +37,7 @@ void setup() {
   Serial.println("");
 }
 
-int secondsAfterLastSensorReading = 0;
+int secondsAfterLastSensorReading = SECONDS_BEFORE_NEXT_SENSOR_READING;
 void loop() {
   delay(1000);
 
