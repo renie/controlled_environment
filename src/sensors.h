@@ -9,6 +9,7 @@ struct SensorReadings {
   float temperature2;
   int ldr;
   int soil;
+  int soilPercentage;
 };
 
 namespace Sensors {

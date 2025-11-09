@@ -19,12 +19,16 @@ namespace Sensors {
   }
 
   static void printReadings(SensorReadings readings) {
+    String lightsState = "Off";
+    if (LightSensor::isOn(readings.ldr)) {
+      lightsState = "On";
+    }
     Serial.println("Humidity on sensor 1: " + String(readings.humidity1));
     Serial.println("Temperature on sensor 1: " + String(readings.temperature1));
     Serial.println("Humidity on sensor 2: " + String(readings.humidity2));
     Serial.println("Temperature on sensor 2: " + String(readings.temperature2));
-    Serial.println("LDR: " + String(LightSensor::isOn(readings.ldr)));
-    Serial.println("Soil Moisture: " + String(readings.soil) + "%");
+    Serial.println("LDR: " + lightsState);
+    Serial.println("Soil Moisture: " + String(readings.soilPercentage) + "% (" + String(readings.soil) + ")");
   }
 
   static bool areSensorReadingsValid(SensorReadings readings) {
@@ -51,15 +55,17 @@ namespace Sensors {
     if (WifiConnection::isOn()) {
       int httpResponseCode = ReportingAPI::sendSensorData();
 
-      if (httpResponseCode > 0) {
+      if (httpResponseCode >= 200 && httpResponseCode < 300) {
         Serial.println("Sensor readings just sent.");
+      } else if (httpResponseCode >= 400 && httpResponseCode < 500) {
+        Serial.print("Check whether the variable API_TO_REPORT_SENSES_URL, on .env file, is correct. Response code: ");
+        Serial.println(httpResponseCode);
+      } else if ((httpResponseCode >= 300 && httpResponseCode < 400) || httpResponseCode >= 500) {
+        Serial.print("Remote server set in API_TO_REPORT_SENSES_URL, on .env file, has a problem. Response code: ");
+        Serial.println(httpResponseCode);
       } else {
-        if (httpResponseCode == -1) {
-          Serial.println("Remote server offline.");
-        } else {
-          Serial.print("Error on sending POST: ");
-          Serial.println(httpResponseCode);
-        }
+        Serial.print("Remote server offline. Response code: ");
+        Serial.println(httpResponseCode);
       }
     } else {
       Serial.println("WiFi Disconnected");
@@ -71,7 +77,7 @@ namespace Sensors {
 
     printReadings(readings);
 
-    if (areSensorReadingsValid(readings)) {
+    if (!areSensorReadingsValid(readings)) {
       Serial.println("There is a sensor with wrong readings.");
       Serial.println("Not sending wrong readings to the remote server.");
       return;
@@ -98,7 +104,8 @@ namespace Sensors {
       airReadings.humidityOnSensor2,
       airReadings.temperatureOnSensor2,
       ldrReading,
-      soilMoisture
+      ResistiveSoilMoisture::getCurrentReading(),
+      ResistiveSoilMoisture::getCurrentReadingInPercentage()
     };
 
     return readings;

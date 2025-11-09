@@ -4,6 +4,8 @@
 namespace ResistiveSoilMoisture {
   void initializePins();
   int read();
+  int getCurrentReading();
+  int getCurrentReadingInPercentage();
 }
 
 #endif
