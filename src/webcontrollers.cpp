@@ -36,8 +36,8 @@ namespace WebControllers {
     server.on("/fanon", setFan100);
     server.on("/fanhalf", setFan50);
     server.on("/fanspeed", getFanSpeed);
-    server.on("/lightson", getFanSpeed);
-    server.on("/lightsoff", getFanSpeed);
+    server.on("/lightson", setLightsOn);
+    server.on("/lightsoff", setLightsOff);
     server.on("/lightsstate", getLightsState);
   }
 

@@ -44,8 +44,8 @@ namespace ReportingAPI {
     dataToReport["temperature1"] = sensorData.temperature1;
     dataToReport["humidity2"] = sensorData.humidity1;
     dataToReport["temperature2"] = sensorData.temperature1;
-    dataToReport["soilMoisture"] = String(LightSensor::isOn(sensorData.ldr));
-    dataToReport["light"] = sensorData.soil;
+    dataToReport["soilMoisture"] = sensorData.soil;
+    dataToReport["light"] = String(LightSensor::isOn(sensorData.ldr));
   }
 
   int sendSensorData() {
