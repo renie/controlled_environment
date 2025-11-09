@@ -23,7 +23,7 @@ namespace Sensors {
     Serial.println("Temperature on sensor 1: " + String(readings.temperature1));
     Serial.println("Humidity on sensor 2: " + String(readings.humidity2));
     Serial.println("Temperature on sensor 2: " + String(readings.temperature2));
-    Serial.println("LDR: " + String(readings.ldr));
+    Serial.println("LDR: " + String(LightSensor::isOn(readings.ldr)));
     Serial.println("Soil Moisture: " + String(readings.soil) + "%");
   }
 
