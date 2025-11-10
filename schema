@@ -17,6 +17,40 @@ Button wont connect directly to the board
 
 --------
 
+Components:
+  - 3x Schottky diodes (1N5820)
+  - Resistors:
+    - 2x 10kΩ
+    - 1x 100Ω
+    - 1x 130Ω
+    - 2x 220Ω
+    - 1x 300Ω
+    - 1x 850Ω
+    - 2x 100kΩ
+  - 1x Relay (JQC-3FF-S-Z)
+    - Something to turn on/off with the relay. Like a light bulb, a water pump, an air heater...
+      (although the relay used in the code currently is just refered by "lights")
+  - 2x DHT22 air humidity and temperature sensor
+  - 1x LDR (photoresistor)
+  - 1x FC-28-D (soil moisture module)
+  - 5x XH2.54-2-Female
+  - 5x XH2.54-2-Male
+  - 4x XH2.54-3-Female
+  - 4x XH2.54-3-Male
+  - 2x 12V fans
+  - 2x Mosfet IRF4905  (P-channel)
+  - 1x Mosfet IRLB8721 (N-channel)
+  - Buck-boost DC-DC converter 5-24V (LTC3780 based)
+  - Buck DC-DC (XL4015-E1)
+  - ESP32-C3 supermini
+  - Level Shifter (TXS0108E)
+  - 1x Battery (18650)
+  - 1x cell Battery charger (TP4056)
+
+--------
+
+
+LDR connection:
 3V -> LDR ---> 10kΩ --> GND
           |
           |
@@ -77,6 +111,7 @@ Buck/Boost Converter Input
        ▼
 Buck/Boost Converter Input
 
+-------
 
 General view of rails:
 
@@ -98,6 +133,7 @@ General view of rails:
                     ----------------------FET(P)IRF4905 -----------5V
 
 ---------------------------------------------------------------------------
+
 FRONT: (components)
 
 
@@ -138,7 +174,10 @@ xrely X  ⋅  ⇘D ⋅  ⋅  ⋅  ⋅Ω ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  o  ⋅  �
       2pin        3pin                                 0    2pin  
     1212V in      Soil Moist.                               5V in 
 
+
 -----------------------------------------------------------------------------
+
+
 FRONT X-RAY (connections):
 
 X and - : GND
