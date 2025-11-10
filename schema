@@ -1,22 +1,3 @@
-3 pin
-  - 2x DHT
-  - 1x Soil Moisture
-  - 1x light relay
-____
-4x 3pin
-
-
-2pin
-  - 2x fans
-  - 1x LDR 
-  - 2x 5V and 12V IN
-----
-5x 2pin
-
-Button wont connect directly to the board 
-
---------
-
 Components:
   - 3x Schottky diodes (1N5820)
   - Resistors:
@@ -46,6 +27,7 @@ Components:
   - Level Shifter (TXS0108E)
   - 1x Battery (18650)
   - 1x cell Battery charger (TP4056)
+  - 1x switch button
 
 --------
 
