@@ -36,27 +36,49 @@ VCC ---> load/relay ---> GND
 12V --- + fans - --- drain - FET - source --- GND
 
 
-+24V ─┬
-      │
-  ┌───▼───┐
-  │ Q1: IRF4905 │
-  │ Gate→100k→OUT │
-  │ Gate→100k→Source │
-  └───┬────┘
-      │
-  Buck/boost
+Different power sources connection:
 
-+5V ──┬
-      │
-  ┌───▼───┐
-  │ Q2: IRF4905 │
-  │ Gate→100k→OUT │
-  │ Gate→100k→Source │
-  └───┬────┘
-      │
-      ▼
-  Buck/boost             
+        ┌─────┐
+        │     │  IRF4905 (P-channel)
+        │ D   │◄── 24V
+        │ S   ├───┐
+        │ G   │   │
+        └───┬─┘   │
+            │      │
+      Gate Node Q1 │
+            │      │
+       ┌────┴────┐ │
+       │         │ │
+    100kΩ       220kΩ
+       │         │
+       ▼         ▼
+  Shared Node   24V
+       │
+       ▼
+Buck/Boost Converter Input
 
+
+        ┌─────┐
+        │     │  IRF4905 (P-channel)
+        │ D   │◄── 5V
+        │ S   ├───┐
+        │ G   │   │
+        └───┬─┘   │
+            │      │
+      Gate Node Q2 │
+            │      │
+       ┌────┴────┐ │
+       │         │ │
+    100kΩ       220kΩ
+       │         │
+       ▼         ▼
+  Shared Node   5V
+       │
+       ▼
+Buck/Boost Converter Input
+
+
+General view of rails:
 
                                              --IRLB8721PBF-(FET)-|
                                              |                   |
